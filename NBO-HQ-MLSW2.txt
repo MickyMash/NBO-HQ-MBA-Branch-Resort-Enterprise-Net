@@ -1,0 +1,206 @@
+HQ-MLS2#sh run
+Building configuration...
+
+Current configuration : 3328 bytes
+!
+version 16.3.2
+service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname HQ-MLS2
+!
+!
+no profinet
+!
+!
+!
+!
+!
+!
+no ip cef
+ip routing
+!
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip arp inspection vlan 10,20,30,40
+!
+ip dhcp snooping vlan 10,20,30,40
+ip dhcp snooping
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree vlan 10,20 priority 28672
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk native vlan 99
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/1
+ no switchport
+ ip address 40.40.40.2 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf priority 1
+ ip ospf 10 area 10
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet1/0/2
+ ip dhcp snooping trust
+ switchport access vlan 10
+ switchport trunk native vlan 99
+ switchport mode access
+ ip arp inspection trust
+!
+interface GigabitEthernet1/0/3
+ ip dhcp snooping trust
+ switchport access vlan 20
+ switchport trunk native vlan 99
+ switchport mode access
+ ip arp inspection trust
+!
+interface GigabitEthernet1/0/4
+ ip dhcp snooping trust
+ switchport access vlan 30
+ switchport trunk native vlan 99
+ switchport mode access
+ ip arp inspection trust
+!
+interface GigabitEthernet1/0/5
+ ip dhcp snooping trust
+ switchport access vlan 40
+ switchport trunk native vlan 99
+ switchport mode access
+ ip arp inspection trust
+!
+interface GigabitEthernet1/0/6
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 1 mode passive
+!
+interface GigabitEthernet1/0/7
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 1 mode passive
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 0006.2ab0.0701
+ ip address 192.168.10.2 255.255.255.0
+ ip helper-address 172.16.10.10
+ ip ospf 10 area 10
+ standby 1 ip 192.168.10.10
+ standby 1 priority 50
+!
+interface Vlan20
+ mac-address 0006.2ab0.0702
+ ip address 192.168.20.2 255.255.255.0
+ ip helper-address 172.16.10.10
+ ip ospf 10 area 10
+ standby 2 ip 192.168.20.10
+ standby 2 priority 50
+!
+interface Vlan30
+ mac-address 0006.2ab0.0703
+ ip address 192.168.30.1 255.255.255.0
+ ip helper-address 172.16.10.10
+ ip ospf 10 area 10
+ standby 3 ip 192.168.30.10
+ standby 3 priority 150
+ standby 3 preempt
+!
+interface Vlan40
+ mac-address 0006.2ab0.0704
+ ip address 192.168.40.1 255.255.255.0
+ ip helper-address 172.16.10.10
+ ip ospf 10 area 10
+ standby 4 ip 192.168.40.10
+ standby 4 priority 150
+ standby 4 preempt
+!
+router ospf 10
+ router-id 100.100.100.100
+ log-adjacency-changes
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 40.40.40.1 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
